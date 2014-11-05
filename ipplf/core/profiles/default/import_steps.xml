@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="ipplf.core.default"
+               handler="ipplf.core.setuphandlers.installCore"
+               title="ipplf.core: install import step">
+  </import-step>
+</import-steps>
