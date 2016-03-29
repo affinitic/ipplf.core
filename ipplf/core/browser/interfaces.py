@@ -14,3 +14,9 @@ class IManageCommon(Interface):
     """
     IManageCommon
     """
+
+
+class IManageDemandeIntervention(Interface):
+    """
+    IManageDemandeIntervention
+    """

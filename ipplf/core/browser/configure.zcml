@@ -25,7 +25,16 @@
         permission="zope.Public"
         />
 
+<!-- manage demande d'intervention -->
+    <browser:page
+        for="*"
+        name="manageDemandeIntervention"
+        class=".ManageDemandeIntervention.ManageDemandeIntervention"
+        allowed_interface=".interfaces.IManageDemandeIntervention"
+        permission="zope.Public"
+        />
 
+<!-- formulaire de demande d'intrvention -->
     <browser:page
         name="formulaire-de-demande-d-intervention"
         for="*"
