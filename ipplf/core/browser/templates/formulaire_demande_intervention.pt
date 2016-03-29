@@ -1,0 +1,344 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n_domain="ipplf.skin">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                    tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+    <h1 class="documentFirstHeading">Formulaire de demande d'intervention</h1>
+    <br />
+    <section class="formulaire">
+        <form action="insertDemandeIntervantion"
+              method="post">
+            <h2>Coordonnées du demandeur</h2>
+            <div class="formInput">
+                <label for="nom-demandeur">
+                    Nom :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="text"
+                       name="nomDemandeur"
+                       id="nom-demandeur"
+                       size="40"/>
+            </div>
+            <div class="formInput">
+                <label for="prenom-demandeur">
+                    Prénom :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="text"
+                       name="prenomDemandeur"
+                       id="prenom-demandeur"
+                       size="40"/>
+            </div>
+            <div class="formInput">
+                <label for="gsm-demandeur">
+                    TEL / GSM :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="text"
+                       name="gsmDemandeur"
+                       id="gsm-demandeur"
+                       size="12"/>
+            </div>
+            <div class="formInput">
+                <label for="email-demandeur">
+                    Adresse e-mail :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="email"
+                       name="emailDemandeur"
+                       id="email-demandeur"
+                       size="50"/>
+            </div>
+            <h2>Adresse du bien concerné par la demande</h2>
+            <div class="formInput">
+                <label for="rue-demandeur">
+                    Rue et numéro :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="text"
+                       name="rueDemandeur"
+                       id="rue-demandeur"
+                       size="50"/>
+            </div>
+            <div class="formInput">
+                <label for="cp-demandeur">
+                    Code postal :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="text"
+                       name="cpDemandeur"
+                       id="cp-demandeur"
+                       size="5"/>
+            </div>
+            <div class="formInput">
+                <label for="localite-demandeur">
+                    Localité :
+                    <span class="fieldRequired" title="Requis">(Requis !)</span>
+                </label>
+                <input type="text"
+                       name="localiteDemandeur"
+                       id="localite-demandeur"
+                       size="50"/>
+            </div>
+            <h2>Coordonnées du demandeur si vous n'êtes pas locataire du bien repris ci-dessus</h2>
+            <div class="formInput">
+                <label for="nom-nolocataire-demandeur">
+                    Nom :
+                </label>
+                <input type="text"
+                       name="nomNoLocataireDemandeur"
+                       id="nom-nolocataire-demandeur"
+                       size="40"/>
+            </div>
+            <div class="formInput">
+                <label for="prenom-nolocataire-demandeur">
+                    Prénom :
+                </label>
+                <input type="text"
+                       name="prenomNoLocataireDemandeur"
+                       id="prenom-nolocataire-demandeur"
+                       size="40"/>
+            </div>
+            <div class="formInput">
+                <label for="gsm-nolocataire-demandeur">
+                    GSM :
+                </label>
+                <input type="text"
+                       name="gsmNoLocataireDemandeur"
+                       id="gsm-nolocataire-demandeur"
+                       size="12"/>
+            </div>
+            <div class="formInput">
+                <label for="email-nolocataire-demandeur">
+                    Adresse e-mail :
+                </label>
+                <input type="email"
+                       name="emailNoLocataireDemandeur"
+                       id="email-nolocataire-demandeur"
+                       size="50"/>
+            </div>
+            <div class="formInput">
+                <label for="rue-nolocataire-demandeur">
+                    Rue et numéro :
+                </label>
+                <input type="text"
+                       name="rueNoLocataireDemandeur"
+                       id="rue-nolocataire-demandeur"
+                       size="50"/>
+            </div>
+            <div class="formInput">
+                <label for="cp-nolocataire-demandeur">
+                    Code postal :
+                </label>
+                <input type="text"
+                       name="cpNoLocataireDemandeur"
+                       id="cp-nolocataire-demandeur"
+                       size="5"/>
+            </div>
+            <div class="formInput">
+                <label for="localite-nolocataire-demandeur">
+                    Localité :
+                </label>
+                <input type="text"
+                       name="localiteNoLocataireDemandeur"
+                       id="localite-nolocataire-demandeur"
+                       size="50"/>
+            </div>
+            <h2>Motif de l’appel avec description du ou des problèmes rencontrés </h2>
+            <div class="formInput">
+                <label for="probleme-electrique-demandeur">
+                    Electrique :
+                </label>
+                <textarea name="problemeElectriqueDemandeur"
+                          id="probleme-electrique-demandeur"
+                          placeholder="Décrire le problème électrique"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-plomberie-demandeur">
+                    Plomberie :
+                </label>
+                <textarea name="problemePlomberieDemandeur"
+                          id="probleme-plomberie-demandeur"
+                          placeholder="Décrire le problème de plomberie"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-menuiserie-demandeur">
+                    Menuiserie :
+                </label>
+                <textarea name="problemeMenuiserieDemandeur"
+                          id="probleme-menuiserie-demandeur"
+                          placeholder="Décrire le problème de menuiserie"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-toiture-demandeur">
+                    Toiture :
+                </label>
+                <textarea name="problemeToitureDemandeur"
+                          id="probleme-toiture-demandeur"
+                          placeholder="Décrire le problème de toiture"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-toiture-demandeur">
+                    Toiture :
+                </label>
+                <textarea name="problemeToitureDemandeur"
+                          id="probleme-toiture-demandeur"
+                          placeholder="Décrire le problème de toiture"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-chauffage-demandeur">
+                    Chauffage :
+                </label>
+                <table class="table-form-demande-intervention">
+                    <tr>
+                        <td colspan="3">
+                            Il est important de spécifier le type de l’installation
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="type-chauffage-chaudiere-demandeur">
+                            <input type="radio"
+                                   name="typeChauffageDemandeur"
+                                   id="type-chauffage-chaudiere-demandeur"
+                                   value="chaudiere" />
+                            &nbsp;Chaudière : Gaz / mazout
+                            </label>
+                        </td>
+                        <td>
+                            <label for="type-chauffage-poelle-demandeur">
+                            <input type="radio"
+                                   name="typeChauffageDemandeur"
+                                   id="type-chauffage-poelle-demandeur"
+                                   value="poelle" />
+                            &nbsp;Poêle : gaz / mazout / pellets / charbon
+                            </label>
+                        </td>
+                        <td>
+                            <label for="type-chauffage-electrique-demandeur">
+                            <input type="radio"
+                                   name="typeChauffageDemandeur"
+                                   id="type-chauffage-electrique-demandeur"
+                                   value="electrique" />
+                            &nbsp;Électrique
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <textarea name="problemeChauffageDemandeur"
+                          id="probleme-chauffage-demandeur"
+                          placeholder="Décrire le problème de chauffage"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-eau-chaude-demandeur">
+                    Eau chaude :
+                </label>
+                <textarea name="problemeEauChaudeDemandeur"
+                          id="probleme-eau-chaude-demandeur"
+                          placeholder="Décrire le problème de eau chaude uniquement s’il s’agit d’un chauffe-eau séparé de la chaudière"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-wc-evacuation-demandeur">
+                    WC ou évacuations :
+                </label>
+                <table class="table-form-demande-intervention">
+                    <tr>
+                        <td colspan="3">
+                            S’il s’agit d’un WC bouché, indiquez si vous avez déjà tenté de déboucher par vous-même
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="oui-deboucher-wc-demandeur">
+                            <input type="radio"
+                                   name="deboucherWcDemandeur"
+                                   id="oui-deboucher-wc-demandeur"
+                                   value="oui" />
+                            &nbsp;Oui, j'ai essayé de le déboucher
+                            </label>
+                        </td>
+                        <td>
+                            <label for="non-deboucher-wc-demandeur">
+                            <input type="radio"
+                                   name="deboucherWcDemandeur"
+                                   id="non-deboucher-wc-demandeur"
+                                   value="non" />
+                            &nbsp;Non, je n'ai pas essayé de le déboucher
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <textarea name="problemeWcEvacuationDemandeur"
+                          id="probleme-wc-evacuation-demandeur"
+                          placeholder="Décrire le problème d'évacuation"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-horticole-demandeur">
+                    Horticole :
+                </label>
+                <textarea name="problemeHorticoleDemandeur"
+                          id="probleme-horticole-demandeur"
+                          placeholder="Décrire le problème horticole"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-humidite-demandeur">
+                    Humidité/infiltrations :
+                </label>
+                <textarea name="problemeHumiditeDemandeur"
+                          id="probleme-humidite-demandeur"
+                          placeholder="Décrire le problème d'infiltration en indiquant d’où proviennent les infiltrations : toiture, menuiseries, ..."
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="probleme-autre-motif-demandeur">
+                    Autres motifs :
+                </label>
+                <textarea name="problemeAutreMotifDemandeur"
+                          id="probleme-autre-motif-demandeur"
+                          placeholder="Décrire le problème"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+
+            <div class="formControls" align="center">
+                <input class="context"
+                       type="submit"
+                       name="submit"
+                       value="Envoyer ma demande" />
+            </div>
+
+
+        </form>
+    </section>
+    <div class="visualClear"></div>
+</div><!-- div metal-->
+</body>
+</html>
+
