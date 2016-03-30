@@ -42,6 +42,13 @@
         permission="zope.Public" />
 
     <browser:page
+        name="demande-intervention-merci"
+        for="*"
+        template="templates/merci_demande_intervention.pt"
+        permission="zope.Public" />
+
+
+    <browser:page
         name="insertDemandeIntervention"
         for="*"
         class=".ManageDemandeIntervention.ManageDemandeIntervention"

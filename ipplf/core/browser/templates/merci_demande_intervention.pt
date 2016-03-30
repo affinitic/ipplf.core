@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n_domain="ipplf.skin">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                    tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+    <h1 class="documentFirstHeading">Formulaire de demande d'intervention</h1>
+    <br />
+    <section class="formulaire">
+        <p>
+            Votre demande d'intervention est enregitrée.
+        </p>
+        <p>
+            Un mail de confirmation vous a été envoyé.
+        </p>
+        <p>
+            Nous y donnerons suite dans les plus brefs délais
+        </p>
+    </section>
+    <div class="visualClear"></div>
+</div><!-- div metal-->
+</body>
+</html>
+

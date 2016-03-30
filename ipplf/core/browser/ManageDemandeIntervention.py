@@ -257,7 +257,7 @@ class ManageDemandeIntervention(BrowserView):
         ploneUtils = getToolByName(self.context, 'plone_utils')
         message = u"Demande d'intervention envoyée !"
         ploneUtils.addPortalMessage(message, 'info')
-        url = "%s/" % (portalUrl,)
+        url = "%s/etre-locataire/intervention-technique/demande-intervention-merci" % (portalUrl,)
         self.request.response.redirect(url)
         return ''
 
