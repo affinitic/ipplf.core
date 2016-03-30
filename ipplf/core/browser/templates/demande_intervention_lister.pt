@@ -1,0 +1,152 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n_domain="ipplf.skin">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                    tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="commonView context/@@manageCommon;
+                 demandeInterventionView context/@@manageDemandeIntervention;
+                 demandeInterventions python:demandeInterventionView.getAllDemandeIntervention();
+                 user python:commonView.getUserAuthenticated();
+                 toDay python:commonView.getTimeStamp()">
+    <h1 class="documentFirstHeading">Listing des demandes d'inteventions</h1>
+    <br />
+    <section tal:repat="demandeIntervention demandeInterventions"
+             class="formulaire">
+        <h2>Coordonnées du demandeur</h2>
+            <div class="formInput">
+                <label for="nom-demandeur">Nom :</label>
+                <span tal:content="demandeIntervention/di_nom_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="prenom-demandeur">Prénom :</label>
+                <span tal:content="demandeIntervention/di_prenom_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="gsm-demandeur">TEL / GSM :</label>
+                <span tal:content="demandeIntervention/di_gsm_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="email-demandeur">Adresse e-mail :</label>
+                <span tal:content="demandeIntervention/di_email_demandeur" />
+            </div>
+
+        <h2>Adresse du bien concerné par la demande</h2>
+            <div class="formInput">
+                <label for="rue-demandeur">Rue et numéro :</label>
+                <span tal:content="demandeIntervention/di_email_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="cp-demandeur">Code postal :</label>
+                <span tal:content="demandeIntervention/di_cp_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="localite-demandeur">Localité :</label>
+                <span tal:content="demandeIntervention/di_localite_demandeur" />
+            </div>
+
+        <h2>Coordonnées du demandeur si vous n'êtes pas locataire du bien repris ci-dessus</h2>
+            <div class="formInput">
+                <label for="nom-nolocataire-demandeur">Nom :</label>
+                <span tal:content="demandeIntervention/di_nom_non_locataire" />
+            </div>
+            <div class="formInput">
+                <label for="prenom-nolocataire-demandeur">Prénom :</label>
+                <span tal:content="demandeIntervention/di_prenom_non_locataire" />
+            </div>
+            <div class="formInput">
+                <label for="gsm-nolocataire-demandeur">TEL / GSM :</label>
+                <span tal:content="demandeIntervention/di_gsm_non_locataire" />
+            </div>
+            <div class="formInput">
+                <label for="email-nolocataire-demandeur">Adresse e-mail :</label>
+                <span tal:content="demandeIntervention/di_email_non_locataire" />
+            </div>
+            <div class="formInput">
+                <label for="rue-nolocataire-demandeur">Rue et numéro :</label>
+                <span tal:content="demandeIntervention/di_rue_non_locataire" />
+            </div>
+            <div class="formInput">
+                <label for="cp-nolocataire-demandeur">Code postal :</label>
+                <span tal:content="demandeIntervention/di_cp_non_locataire" />
+            </div>
+            <div class="formInput">
+                <label for="localite-nolocataire-demandeur">Localité :</label>
+                <span tal:content="demandeIntervention/di_localite_non_locataire" />
+            </div>
+
+            <h2>Motif de l’appel avec description du ou des problèmes rencontrés </h2>
+            <div class="formInput">
+                <label for="probleme-electrique-demandeur">Electrique :</label>
+                <span tal:content="demandeIntervention/di_probleme_electrique_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="probleme-plomberie-demandeur">Plomberie :</label>
+                <span tal:content="demandeIntervention/di_probleme_plomberie_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="probleme-menuiserie-demandeur">Menuiserie :</label>
+                <span tal:content="demandeIntervention/di_probleme_menuiserie_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="probleme-toiture-demandeur">Toiture :</label>
+                <span tal:content="demandeIntervention/di_probleme_toiture_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="probleme-chauffage-demandeur">Chauffage :</label>
+                <span tal:content="demandeIntervention/di_probleme_chauffage_demandeur" /><br />
+                &#8618; Type : <span tal:content="demandeIntervention/di_type_chauffage_demandeur" />
+            </div>
+            <div class="formInput">
+                <label for="probleme-eau-chaude-demandeur">Eau chaude :</label>
+                <span tal:content="demandeIntervention/di_probleme_eau_chaude_demandeur" /><br />
+            </div>
+            <div class="formInput">
+                <label for="probleme-wc-evacuation-demandeur">WC ou évacuations :</label>
+                <span tal:content="demandeIntervention/di_probleme_wc_evacuation_demandeur" /><br />
+                &#8618; Essai de déboucher : <span tal:content="demandeIntervention/di_deboucher_wc_demandeur" />
+
+            </div>
+            <div class="formInput">
+                <label for="probleme-horticole-demandeur">Horticole :</label>
+                <span tal:content="demandeIntervention/di_probleme_horticol_demandeur" /><br />
+            </div>
+            <div class="formInput">
+                <label for="probleme-humidite-demandeur">Humidité / Infiltrations :</label>
+                <span tal:content="demandeIntervention/di_probleme_humidite_demandeur" /><br />
+            </div>
+            <div class="formInput">
+                <label for="probleme-autre-motif-demandeur">Autres motifs :</label>
+                <span tal:content="demandeIntervention/di_probleme_autre_motif_demandeur" /><br />
+            </div>
+
+
+            <div class="formInput">
+                <label for="commentaire-ipplf">Autres motifs :</label>
+                <textarea name="commentaire Ipplf"
+                          id="commentaire-ipplf"
+                          placeholder="Ajouter un commentaire sur cette intervention"
+                          cols="40"
+                          rows="5"></textarea>
+            </div>
+            <div class="formInput">
+                <label for="commentaire-ipplf">Etat de cette demande d'intervention</label>
+                <select name="etatIpplf">
+                    <option value="false">Cloturée</option>
+                    <option value="false">Non Traitée</option>
+                    <option value="false">En cours</option>
+                </select>
+            </div>
+
+    </section>
+    <div class="visualClear"></div>
+</div><!-- div metal-->
+</body>
+</html>
+
