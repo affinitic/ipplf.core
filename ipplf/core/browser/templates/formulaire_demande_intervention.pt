@@ -13,7 +13,7 @@
     <h1 class="documentFirstHeading">Formulaire de demande d'intervention</h1>
     <br />
     <section class="formulaire">
-        <form action="insertDemandeIntervantion"
+        <form action="insertDemandeIntervention"
               method="post">
             <h2>Coordonnées du demandeur</h2>
             <div class="formInput">
@@ -193,16 +193,6 @@
                           rows="5"></textarea>
             </div>
             <div class="formInput">
-                <label for="probleme-toiture-demandeur">
-                    Toiture :
-                </label>
-                <textarea name="problemeToitureDemandeur"
-                          id="probleme-toiture-demandeur"
-                          placeholder="Décrire le problème de toiture"
-                          cols="40"
-                          rows="5"></textarea>
-            </div>
-            <div class="formInput">
                 <label for="probleme-chauffage-demandeur">
                     Chauffage :
                 </label>
@@ -275,7 +265,7 @@
                             <input type="radio"
                                    name="deboucherWcDemandeur"
                                    id="oui-deboucher-wc-demandeur"
-                                   value="oui" />
+                                   value="True" />
                             &nbsp;Oui, j'ai essayé de le déboucher
                             </label>
                         </td>
@@ -284,7 +274,7 @@
                             <input type="radio"
                                    name="deboucherWcDemandeur"
                                    id="non-deboucher-wc-demandeur"
-                                   value="non" />
+                                   value="False" />
                             &nbsp;Non, je n'ai pas essayé de le déboucher
                             </label>
                         </td>

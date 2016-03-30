@@ -41,4 +41,13 @@
         template="templates/formulaire_demande_intervention.pt"
         permission="zope.Public" />
 
+    <browser:page
+        name="insertDemandeIntervention"
+        for="*"
+        class=".ManageDemandeIntervention.ManageDemandeIntervention"
+        permission="zope.Public"
+        attribute="insertDemandeIntervention"
+        allowed_interface=".interfaces.IManageDemandeIntervention"
+        />
+
 </configure>

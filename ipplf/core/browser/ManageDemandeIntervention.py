@@ -18,8 +18,8 @@ from zope.interface import implements
 from zope.component import getMultiAdapter
 from z3c.sqlalchemy import getSAWrapper
 from Products.CMFCore.utils import getToolByName
-from interfaces import IManageCaisseMusee
-from boisduluc.db.pgsql.baseTypes import DemandeIntervention
+from interfaces import IManageDemandeIntervention
+from ipplf.db.pgsql.baseTypes import DemandeIntervention
 
 
 class ManageDemandeIntervention(BrowserView):
@@ -72,55 +72,51 @@ class ManageDemandeIntervention(BrowserView):
         deboucherWcDemandeur = fields.get('deboucherWcDemandeur', None)
         problemeWcEvacuationDemandeur = fields.get('problemeWcEvacuationDemandeur', None)
         problemeHorticoleDemandeur = fields.get('problemeHorticoleDemandeur', None)
-        operationTypePaiementFk = fields.get('operationTypePaiementFk', None)
-        operationTypePaiementFk = fields.get('operationTypePaiementFk', None)
-        operationTypePaiementFk = fields.get('operationTypePaiementFk', None)
+        problemeHumiditeDemandeur = fields.get('problemeHumiditeDemandeur', None)
+        problemeAutreMotifDemandeur = fields.get('problemeAutreMotifDemandeur', None)
 
+        commentaireIpplf = ""
+        etatIpplf = True
 
-
-        wrapper = getSAWrapper('boisduluc')
+        wrapper = getSAWrapper('ipplf')
         session = wrapper.session
-        insertOperation = wrapper.getMapper('operation')
-        newEntry = insertOperation(di_nom_demandeur=nomDemandeur
-                                   di_prenom_demandeur=prenomDemandeur
-                                   di_gsm_demandeur=gsmDemandeur
-                                   di_email_demandeur=emailDemandeur
-                                   di_rue_demandeur=rueDemandeur
-                                   di_cp_demandeur=cpDemandeur
-                                   di_localite_demandeur=localiteDemandeur
-                                   di_nom_non_locataire=nomNoLocataireDemandeur
-                                   di_prenom_non_locataire=prenomNoLocataireDemandeur
-                                   di_gsm_non_locataire=gsmNoLocataireDemandeur
-                                   di_email_non_locataire=emailNoLocataireDemandeur
-                                   di_rue_non_locataire=rueNoLocataireDemandeur
-                                   di_cp_non_locataire=cpNoLocataireDemandeur
-                                   di_localite_non_locataire=localiteNoLocataireDemandeur
-                                   di_probleme_electrique_demandeur=problemeElectriqueDemandeur
-                                   di_probleme_plomberie_demandeur=problemePlomberieDemandeur
-                                   di_probleme_menuiserie_demandeur=problemeMenuiserieDemandeur
-                                   di_probleme_toiture_demandeur=problemeToitureDemandeur
-                                   di_probleme_chauffage_demandeur=problemeToitureDemandeur
-                                   di_type_chauffage_demandeur=typeChauffageDemandeur
-                                   di_probleme_eau_chaude_demandeur=problemeEauChaudeDemandeur
-                                   di_probleme_chauffage_demandeur=problemeChauffageDemandeur
-                                   di_probleme_wc_evacuation_demandeur=deboucherWcDemandeur
-                                   di_deboucher_wc_demandeur=problemeWcEvacuationDemandeur
-                                   di_probleme_horticol_demandeur=problemeHorticoleDemandeur
-                                   di_probleme_humidite_demandeur=
-                                   di_probleme_autre_motif_demandeur=
-                                   di_commentaire_ipplf=
-                                   di_etat_ipplf=
-                                   )
+        insertOperation = wrapper.getMapper('demande_intervention')
+        newEntry = insertOperation(di_nom_demandeur=nomDemandeur,
+                                   di_prenom_demandeur=prenomDemandeur,
+                                   di_gsm_demandeur=gsmDemandeur,
+                                   di_email_demandeur=emailDemandeur,
+                                   di_rue_demandeur=rueDemandeur,
+                                   di_cp_demandeur=cpDemandeur,
+                                   di_localite_demandeur=localiteDemandeur,
+                                   di_nom_non_locataire=nomNoLocataireDemandeur,
+                                   di_prenom_non_locataire=prenomNoLocataireDemandeur,
+                                   di_gsm_non_locataire=gsmNoLocataireDemandeur,
+                                   di_email_non_locataire=emailNoLocataireDemandeur,
+                                   di_rue_non_locataire=rueNoLocataireDemandeur,
+                                   di_cp_non_locataire=cpNoLocataireDemandeur,
+                                   di_localite_non_locataire=localiteNoLocataireDemandeur,
+                                   di_probleme_electrique_demandeur=problemeElectriqueDemandeur,
+                                   di_probleme_plomberie_demandeur=problemePlomberieDemandeur,
+                                   di_probleme_menuiserie_demandeur=problemeMenuiserieDemandeur,
+                                   di_probleme_toiture_demandeur=problemeToitureDemandeur,
+                                   di_probleme_chauffage_demandeur=problemeChauffageDemandeur,
+                                   di_type_chauffage_demandeur=typeChauffageDemandeur,
+                                   di_probleme_eau_chaude_demandeur=problemeEauChaudeDemandeur,
+                                   di_probleme_wc_evacuation_demandeur=problemeWcEvacuationDemandeur,
+                                   di_deboucher_wc_demandeur=deboucherWcDemandeur,
+                                   di_probleme_horticol_demandeur=problemeHorticoleDemandeur,
+                                   di_probleme_humidite_demandeur=problemeHumiditeDemandeur,
+                                   di_probleme_autre_motif_demandeur=problemeAutreMotifDemandeur)
         session.add(newEntry)
         session.flush()
         session.refresh(newEntry)
-        operationPk = newEntry.operation_pk
+        operationPk = newEntry.di_pk
 
         portalUrl = getToolByName(self.context, 'portal_url')()
         ploneUtils = getToolByName(self.context, 'plone_utils')
-        message = u"Ok c'est dans la caisse !"
+        message = u"Demande d'intervention envoyée !"
         ploneUtils.addPortalMessage(message, 'info')
-        url = "%s/caisse-du-musee" % (portalUrl,)
+        url = "%s/" % (portalUrl,)
         self.request.response.redirect(url)
         return ''
 
