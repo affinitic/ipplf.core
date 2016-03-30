@@ -23,11 +23,15 @@ from ipplf.db.pgsql.baseTypes import DemandeIntervention
 
 
 class ManageDemandeIntervention(BrowserView):
+    """
+    Methodes pour la gestion d'une demande d'intervention pour le projet IPPLF
+    """
+
     implements(IManageDemandeIntervention)
 
     def getAllDemandeIntervention(self):
         """
-        recuperation de toutes les demande d'intervention
+        Recuperation de toutes les demande d'intervention
         """
         wrapper = getSAWrapper('ipplf')
         session = wrapper.session
@@ -35,6 +39,114 @@ class ManageDemandeIntervention(BrowserView):
         query = query.order_by(DemandeIntervention.di_date_creation)
         allDemandeInterventions = query.all()
         return allDemandeInterventions
+
+    def sendMailToDemandeurIntervention(self, prenomDemandeur, nomDemandeur, emailDemandeur):
+        """
+        Envoi d'un mail de confirmation au demandeur d'intervention
+        """
+        commonTools = getMultiAdapter((self.context, self.request), name="manageCommon")
+
+        sujet = "IPPLF : confirmation de votre demande d'intervention"
+        message = """
+                  Bonjour %s %s,
+                  <br /><br />
+                  Votre demande d'intervention à bien été envoyée.
+                  <br />
+                  Vous recevrez une réponse sous peu.
+                  <br /><br />
+                  Bien à vous,
+                  <br /><br />
+                  L'équipe IPPLF.
+                  """ % (prenomDemandeur, nomDemandeur)
+        commonTools.sendMailToDemandeur(sujet, message, emailDemandeur)
+
+    def sendMailToIPPLF(self, nomDemandeur,
+                              prenomDemandeur,
+                              gsmDemandeur,
+                              emailDemandeur,
+                              rueDemandeur,
+                              cpDemandeur,
+                              localiteDemandeur,
+                              nomNoLocataireDemandeur,
+                              prenomNoLocataireDemandeur,
+                              gsmNoLocataireDemandeur,
+                              emailNoLocataireDemandeur,
+                              rueNoLocataireDemandeur,
+                              cpNoLocataireDemandeur,
+                              localiteNoLocataireDemandeur,
+                              problemeElectriqueDemandeur,
+                              problemePlomberieDemandeur,
+                              problemeMenuiserieDemandeur,
+                              problemeToitureDemandeur,
+                              typeChauffageDemandeur,
+                              problemeChauffageDemandeur,
+                              problemeEauChaudeDemandeur,
+                              deboucherWcDemandeur,
+                              problemeWcEvacuationDemandeur,
+                              problemeHorticoleDemandeur,
+                              problemeHumiditeDemandeur,
+                              problemeAutreMotifDemandeur):
+        """
+        Envoi d'un mail à l'équipe Ipplf lors d'une demande d'intervention
+        """
+        commonTools = getMultiAdapter((self.context, self.request), name="manageCommon")
+
+        dateCreationDemandeIntervantion = commonTools.getTimeStamp(True)
+
+
+        sujet = "IPPLF : demande d'intervention via le site"
+        message = """
+              <font color='#888888'>
+              <font color='#FF0000'><b>:: DEMANDE D'INTERVENTION ::</b></font><br /><br />
+              Date de la demande : <font color='#ff9c1b'><b>%s</b></font><br />
+              <br />
+              <font color='#00405e'>*** Coordonnées du demandeur ***</font>
+              <br />
+              Nom : <font color='#ff9c1b'><b>%s</b></font><br />
+              Prénom : <font color='#ff9c1b'><b>%s</b></font><br />
+              Adresse : <font color='#ff9c1b'><b>%s</b></font><br />
+              Code Postal : <font color='#ff9c1b'><b>%s</b></font><br />
+              Localité : <font color='#ff9c1b'><b>%s</b></font><br />
+              GSM / Tel : <font color='#ff9c1b'><b>%s</b></font><br />
+              E-mail : <font color='#ff9c1b'><b>%s</b></font><br />
+              <br /><br />
+
+              <font color='#00405e'>*** Le Demandeur n'est pas le locataire ***</font>
+              <br />
+              Nom : <font color='#ff9c1b'><b>%s</b></font><br />
+              Prénom : <font color='#ff9c1b'><b>%s</b></font><br />
+              Adresse : <font color='#ff9c1b'><b>%s</b></font><br />
+              Code Postal : <font color='#ff9c1b'><b>%s</b></font><br />
+              Localité : <font color='#ff9c1b'><b>%s</b></font><br />
+              GSM / Tel : <font color='#ff9c1b'><b>%s</b></font><br />
+              E-mail : <font color='#ff9c1b'><b>%s</b></font><br />
+              <br /><br />
+
+              <font color='#00405e'>*** PROBLEME ***</font>
+              <br />
+              Electricité : <font color='#ff9c1b'><b>%s</b></font><br />
+              Plomberie : <font color='#ff9c1b'><b>%s</b></font><br />
+              Menuiserie : <font color='#ff9c1b'><b>%s</b></font><br />
+              Toiture : <font color='#ff9c1b'><b>%s</b></font><br />
+              Chauffage :  <font color='#ff9c1b'><b>%s</b></font><br />
+              &nbsp;&nbsp; &#8618; Type de chauffage : <font color='#ff9c1b'><b>%s</b></font><br />
+              Eau chaude : <font color='#ff9c1b'><b>%s</b></font><br />
+              WC : <font color='#ff9c1b'><b>%s</b></font><br />
+              &nbsp;&nbsp; &#8618; Tentative de déboucher : <font color='#ff9c1b'><b>%s</b></font><br />
+              Horticole : <font color='#ff9c1b'><b>%s</b></font><br />
+              Humidité - Infiltation : <font color='#ff9c1b'><b>%s</b></font><br />
+              Autre motif : <font color='#ff9c1b'><b>%s</b></font><br />
+              </font>
+              """ % (dateCreationDemandeIntervantion, nomDemandeur, prenomDemandeur, rueDemandeur,
+                     cpDemandeur, localiteDemandeur, gsmDemandeur, emailDemandeur, nomNoLocataireDemandeur,
+                     prenomNoLocataireDemandeur, rueNoLocataireDemandeur, cpNoLocataireDemandeur,
+                     localiteNoLocataireDemandeur, gsmNoLocataireDemandeur, emailNoLocataireDemandeur,
+                     problemeElectriqueDemandeur, problemePlomberieDemandeur, problemeMenuiserieDemandeur,
+                     problemeToitureDemandeur, problemeChauffageDemandeur, typeChauffageDemandeur,
+                     problemeEauChaudeDemandeur, deboucherWcDemandeur, problemeWcEvacuationDemandeur,
+                     problemeHorticoleDemandeur, problemeHumiditeDemandeur, problemeAutreMotifDemandeur)
+
+        commonTools.sendMailToIpplfForDemandeIntervention(sujet, message)
 
 
     def insertDemandeIntervention(self):
@@ -111,6 +223,35 @@ class ManageDemandeIntervention(BrowserView):
         session.flush()
         session.refresh(newEntry)
         operationPk = newEntry.di_pk
+
+        self.sendMailToDemandeurIntervention(prenomDemandeur, nomDemandeur, emailDemandeur)
+
+        self.sendMailToIPPLF(nomDemandeur,
+                             prenomDemandeur,
+                             gsmDemandeur,
+                             emailDemandeur,
+                             rueDemandeur,
+                             cpDemandeur,
+                             localiteDemandeur,
+                             nomNoLocataireDemandeur,
+                             prenomNoLocataireDemandeur,
+                             gsmNoLocataireDemandeur,
+                             emailNoLocataireDemandeur,
+                             rueNoLocataireDemandeur,
+                             cpNoLocataireDemandeur,
+                             localiteNoLocataireDemandeur,
+                             problemeElectriqueDemandeur,
+                             problemePlomberieDemandeur,
+                             problemeMenuiserieDemandeur,
+                             problemeToitureDemandeur,
+                             typeChauffageDemandeur,
+                             problemeChauffageDemandeur,
+                             problemeEauChaudeDemandeur,
+                             deboucherWcDemandeur,
+                             problemeWcEvacuationDemandeur,
+                             problemeHorticoleDemandeur,
+                             problemeHumiditeDemandeur,
+                             problemeAutreMotifDemandeur)
 
         portalUrl = getToolByName(self.context, 'portal_url')()
         ploneUtils = getToolByName(self.context, 'plone_utils')

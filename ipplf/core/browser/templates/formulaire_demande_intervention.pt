@@ -298,7 +298,7 @@
             </div>
             <div class="formInput">
                 <label for="probleme-humidite-demandeur">
-                    Humidité/infiltrations :
+                    Humidité / Infiltrations :
                 </label>
                 <textarea name="problemeHumiditeDemandeur"
                           id="probleme-humidite-demandeur"
