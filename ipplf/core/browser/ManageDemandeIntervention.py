@@ -40,6 +40,21 @@ class ManageDemandeIntervention(BrowserView):
         allDemandeInterventions = query.all()
         return allDemandeInterventions
 
+    def getDemandeInterventionByPk(self, diPk=None):
+        """
+        Recuperation de toutes les demande d'intervention
+        """
+        if not diPk:
+            fields = self.request.form
+            diPk = fields.get('diPk', None)
+        wrapper = getSAWrapper('ipplf')
+        session = wrapper.session
+        query = session.query(DemandeIntervention)
+        query = query.filter(DemandeIntervention.di_pk==diPk)
+        demandeIntervention = query.one()
+        return demandeIntervention
+
+
     def sendMailToDemandeurIntervention(self, prenomDemandeur, nomDemandeur, emailDemandeur):
         """
         Envoi d'un mail de confirmation au demandeur d'intervention
@@ -50,7 +65,7 @@ class ManageDemandeIntervention(BrowserView):
         message = """
                   Bonjour %s %s,
                   <br /><br />
-                  Votre demande d'intervention à bien été envoyée.
+                  Votre demande d'intervention a bien été envoyée.
                   <br />
                   Vous recevrez une réponse sous peu.
                   <br /><br />
@@ -92,6 +107,13 @@ class ManageDemandeIntervention(BrowserView):
         commonTools = getMultiAdapter((self.context, self.request), name="manageCommon")
 
         dateCreationDemandeIntervantion = commonTools.getTimeStamp(True)
+        if deboucherWcDemandeur:
+            deboucherWcDemandeur = 'Oui'
+        else:
+            deboucherWcDemandeur = 'Non'
+
+        if len(problemeChauffageDemandeur) == 0:
+            typeChauffageDemandeur = ''
 
 
         sujet = "IPPLF : demande d'intervention via le site"
@@ -134,7 +156,7 @@ class ManageDemandeIntervention(BrowserView):
               WC : <font color='#ff9c1b'><b>%s</b></font><br />
               &nbsp;&nbsp; &#8618; Tentative de déboucher : <font color='#ff9c1b'><b>%s</b></font><br />
               Horticole : <font color='#ff9c1b'><b>%s</b></font><br />
-              Humidité - Infiltation : <font color='#ff9c1b'><b>%s</b></font><br />
+              Humidité - Infiltration : <font color='#ff9c1b'><b>%s</b></font><br />
               Autre motif : <font color='#ff9c1b'><b>%s</b></font><br />
               </font>
               """ % (dateCreationDemandeIntervantion, nomDemandeur, prenomDemandeur, rueDemandeur,
@@ -143,7 +165,7 @@ class ManageDemandeIntervention(BrowserView):
                      localiteNoLocataireDemandeur, gsmNoLocataireDemandeur, emailNoLocataireDemandeur,
                      problemeElectriqueDemandeur, problemePlomberieDemandeur, problemeMenuiserieDemandeur,
                      problemeToitureDemandeur, problemeChauffageDemandeur, typeChauffageDemandeur,
-                     problemeEauChaudeDemandeur, deboucherWcDemandeur, problemeWcEvacuationDemandeur,
+                     problemeEauChaudeDemandeur, problemeWcEvacuationDemandeur, deboucherWcDemandeur,
                      problemeHorticoleDemandeur, problemeHumiditeDemandeur, problemeAutreMotifDemandeur)
 
         commonTools.sendMailToIpplfForDemandeIntervention(sujet, message)
@@ -188,7 +210,7 @@ class ManageDemandeIntervention(BrowserView):
         problemeAutreMotifDemandeur = fields.get('problemeAutreMotifDemandeur', None)
 
         commentaireIpplf = ""
-        etatIpplf = True
+        etatIpplf = "En demande"  # en demande - en traitement - cloturée
 
         wrapper = getSAWrapper('ipplf')
         session = wrapper.session
@@ -218,7 +240,9 @@ class ManageDemandeIntervention(BrowserView):
                                    di_deboucher_wc_demandeur=deboucherWcDemandeur,
                                    di_probleme_horticol_demandeur=problemeHorticoleDemandeur,
                                    di_probleme_humidite_demandeur=problemeHumiditeDemandeur,
-                                   di_probleme_autre_motif_demandeur=problemeAutreMotifDemandeur)
+                                   di_probleme_autre_motif_demandeur=problemeAutreMotifDemandeur,
+                                   di_etat_ipplf=etatIpplf,
+                                   di_commentaire_ipplf=commentaireIpplf)
         session.add(newEntry)
         session.flush()
         session.refresh(newEntry)

@@ -47,6 +47,18 @@
         template="templates/merci_demande_intervention.pt"
         permission="zope.Public" />
 
+    <browser:page
+        name="listing-des-demandes-d-intervention"
+        for="*"
+        template="templates/demande_intervention_lister.pt"
+        permission="zope.Public" />
+
+    <browser:page
+        name="detail-demande-d-intervention"
+        for="*"
+        template="templates/demande_intervention_detailler.pt"
+        permission="zope.Public" />
+
 
     <browser:page
         name="insertDemandeIntervention"
