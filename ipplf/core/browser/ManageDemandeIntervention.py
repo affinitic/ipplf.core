@@ -182,6 +182,7 @@ class ManageDemandeIntervention(BrowserView):
         operationTotal = 22
 
         fields = self.request.form
+        demandeurProprio = fields.get('demandeurProprio', None)
         nomDemandeur = fields.get('nomDemandeur', None)
         prenomDemandeur = fields.get('prenomDemandeur', None)
         gsmDemandeur = fields.get('gsmDemandeur', None)
@@ -215,7 +216,8 @@ class ManageDemandeIntervention(BrowserView):
         wrapper = getSAWrapper('ipplf')
         session = wrapper.session
         insertOperation = wrapper.getMapper('demande_intervention')
-        newEntry = insertOperation(di_nom_demandeur=nomDemandeur,
+        newEntry = insertOperation(di_demandeur_proprio=demandeurProprio,
+                                   di_nom_demandeur=nomDemandeur,
                                    di_prenom_demandeur=prenomDemandeur,
                                    di_gsm_demandeur=gsmDemandeur,
                                    di_email_demandeur=emailDemandeur,
