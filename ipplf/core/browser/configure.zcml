@@ -38,7 +38,7 @@
     <browser:page
         name="formulaire-de-demande-d-intervention"
         for="*"
-        template="templates/formulaire_demande_intervention.pt"
+        template="templates/demande_intervention_creer.pt"
         permission="zope.Public" />
 
     <browser:page
