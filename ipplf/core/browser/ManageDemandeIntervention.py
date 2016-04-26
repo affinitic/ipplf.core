@@ -50,12 +50,15 @@ class ManageDemandeIntervention(BrowserView):
         wrapper = getSAWrapper('ipplf')
         session = wrapper.session
         query = session.query(DemandeIntervention)
-        query = query.filter(DemandeIntervention.di_pk==diPk)
+        query = query.filter(DemandeIntervention.di_pk == diPk)
         demandeIntervention = query.one()
         return demandeIntervention
 
 
-    def sendMailToDemandeurIntervention(self, prenomDemandeur, nomDemandeur, emailDemandeur):
+    def sendMailToDemandeurIntervention(self,
+                                        prenomDemandeur,
+                                        nomDemandeur,
+                                        emailDemandeur):
         """
         Envoi d'un mail de confirmation au demandeur d'intervention
         """
@@ -75,32 +78,33 @@ class ManageDemandeIntervention(BrowserView):
                   """ % (prenomDemandeur, nomDemandeur)
         commonTools.sendMailToDemandeur(sujet, message, emailDemandeur)
 
-    def sendMailToIPPLF(self, nomDemandeur,
-                              prenomDemandeur,
-                              gsmDemandeur,
-                              emailDemandeur,
-                              rueDemandeur,
-                              cpDemandeur,
-                              localiteDemandeur,
-                              nomNoLocataireDemandeur,
-                              prenomNoLocataireDemandeur,
-                              gsmNoLocataireDemandeur,
-                              emailNoLocataireDemandeur,
-                              rueNoLocataireDemandeur,
-                              cpNoLocataireDemandeur,
-                              localiteNoLocataireDemandeur,
-                              problemeElectriqueDemandeur,
-                              problemePlomberieDemandeur,
-                              problemeMenuiserieDemandeur,
-                              problemeToitureDemandeur,
-                              typeChauffageDemandeur,
-                              problemeChauffageDemandeur,
-                              problemeEauChaudeDemandeur,
-                              deboucherWcDemandeur,
-                              problemeWcEvacuationDemandeur,
-                              problemeHorticoleDemandeur,
-                              problemeHumiditeDemandeur,
-                              problemeAutreMotifDemandeur):
+    def sendMailToIPPLF(self,
+                        nomDemandeur,
+                        prenomDemandeur,
+                        gsmDemandeur,
+                        emailDemandeur,
+                        rueDemandeur,
+                        cpDemandeur,
+                        localiteDemandeur,
+                        nomNoLocataireDemandeur,
+                        prenomNoLocataireDemandeur,
+                        gsmNoLocataireDemandeur,
+                        emailNoLocataireDemandeur,
+                        rueNoLocataireDemandeur,
+                        cpNoLocataireDemandeur,
+                        localiteNoLocataireDemandeur,
+                        problemeElectriqueDemandeur,
+                        problemePlomberieDemandeur,
+                        problemeMenuiserieDemandeur,
+                        problemeToitureDemandeur,
+                        typeChauffageDemandeur,
+                        problemeChauffageDemandeur,
+                        problemeEauChaudeDemandeur,
+                        deboucherWcDemandeur,
+                        problemeWcEvacuationDemandeur,
+                        problemeHorticoleDemandeur,
+                        problemeHumiditeDemandeur,
+                        problemeAutreMotifDemandeur):
         """
         Envoi d'un mail à l'équipe Ipplf lors d'une demande d'intervention
         """
@@ -176,11 +180,6 @@ class ManageDemandeIntervention(BrowserView):
         table pg demande d'intervention
         ajout d'une demande d'intervention
         """
-        commonTools = getMultiAdapter((self.context, self.request), name="manageCommon")
-        operationUser = commonTools.getUserAuthenticated()
-        operationTypeCaisseFk = 1
-        operationTotal = 22
-
         fields = self.request.form
         demandeurProprio = fields.get('demandeurProprio', None)
         nomDemandeur = fields.get('nomDemandeur', None)
@@ -213,38 +212,41 @@ class ManageDemandeIntervention(BrowserView):
         commentaireIpplf = ""
         etatIpplf = "En demande"  # en demande - en traitement - cloturée
 
+        if not emailDemandeur:
+            emailDemandeur = emailNoLocataireDemandeur
+
         wrapper = getSAWrapper('ipplf')
         session = wrapper.session
-        insertOperation = wrapper.getMapper('demande_intervention')
-        newEntry = insertOperation(di_demandeur_proprio=demandeurProprio,
-                                   di_nom_demandeur=nomDemandeur,
-                                   di_prenom_demandeur=prenomDemandeur,
-                                   di_gsm_demandeur=gsmDemandeur,
-                                   di_email_demandeur=emailDemandeur,
-                                   di_rue_demandeur=rueDemandeur,
-                                   di_cp_demandeur=cpDemandeur,
-                                   di_localite_demandeur=localiteDemandeur,
-                                   di_nom_non_locataire=nomNoLocataireDemandeur,
-                                   di_prenom_non_locataire=prenomNoLocataireDemandeur,
-                                   di_gsm_non_locataire=gsmNoLocataireDemandeur,
-                                   di_email_non_locataire=emailNoLocataireDemandeur,
-                                   di_rue_non_locataire=rueNoLocataireDemandeur,
-                                   di_cp_non_locataire=cpNoLocataireDemandeur,
-                                   di_localite_non_locataire=localiteNoLocataireDemandeur,
-                                   di_probleme_electrique_demandeur=problemeElectriqueDemandeur,
-                                   di_probleme_plomberie_demandeur=problemePlomberieDemandeur,
-                                   di_probleme_menuiserie_demandeur=problemeMenuiserieDemandeur,
-                                   di_probleme_toiture_demandeur=problemeToitureDemandeur,
-                                   di_probleme_chauffage_demandeur=problemeChauffageDemandeur,
-                                   di_type_chauffage_demandeur=typeChauffageDemandeur,
-                                   di_probleme_eau_chaude_demandeur=problemeEauChaudeDemandeur,
-                                   di_probleme_wc_evacuation_demandeur=problemeWcEvacuationDemandeur,
-                                   di_deboucher_wc_demandeur=deboucherWcDemandeur,
-                                   di_probleme_horticol_demandeur=problemeHorticoleDemandeur,
-                                   di_probleme_humidite_demandeur=problemeHumiditeDemandeur,
-                                   di_probleme_autre_motif_demandeur=problemeAutreMotifDemandeur,
-                                   di_etat_ipplf=etatIpplf,
-                                   di_commentaire_ipplf=commentaireIpplf)
+        insertIntervention = wrapper.getMapper('demande_intervention')
+        newEntry = insertIntervention(di_demandeur_proprio=demandeurProprio,
+                                      di_nom_demandeur=nomDemandeur,
+                                      di_prenom_demandeur=prenomDemandeur,
+                                      di_gsm_demandeur=gsmDemandeur,
+                                      di_email_demandeur=emailDemandeur,
+                                      di_rue_demandeur=rueDemandeur,
+                                      di_cp_demandeur=cpDemandeur,
+                                      di_localite_demandeur=localiteDemandeur,
+                                      di_nom_non_locataire=nomNoLocataireDemandeur,
+                                      di_prenom_non_locataire=prenomNoLocataireDemandeur,
+                                      di_gsm_non_locataire=gsmNoLocataireDemandeur,
+                                      di_email_non_locataire=emailNoLocataireDemandeur,
+                                      di_rue_non_locataire=rueNoLocataireDemandeur,
+                                      di_cp_non_locataire=cpNoLocataireDemandeur,
+                                      di_localite_non_locataire=localiteNoLocataireDemandeur,
+                                      di_probleme_electrique_demandeur=problemeElectriqueDemandeur,
+                                      di_probleme_plomberie_demandeur=problemePlomberieDemandeur,
+                                      di_probleme_menuiserie_demandeur=problemeMenuiserieDemandeur,
+                                      di_probleme_toiture_demandeur=problemeToitureDemandeur,
+                                      di_probleme_chauffage_demandeur=problemeChauffageDemandeur,
+                                      di_type_chauffage_demandeur=typeChauffageDemandeur,
+                                      di_probleme_eau_chaude_demandeur=problemeEauChaudeDemandeur,
+                                      di_probleme_wc_evacuation_demandeur=problemeWcEvacuationDemandeur,
+                                      di_deboucher_wc_demandeur=deboucherWcDemandeur,
+                                      di_probleme_horticol_demandeur=problemeHorticoleDemandeur,
+                                      di_probleme_humidite_demandeur=problemeHumiditeDemandeur,
+                                      di_probleme_autre_motif_demandeur=problemeAutreMotifDemandeur,
+                                      di_etat_ipplf=etatIpplf,
+                                      di_commentaire_ipplf=commentaireIpplf)
         session.add(newEntry)
         session.flush()
         session.refresh(newEntry)
@@ -287,5 +289,36 @@ class ManageDemandeIntervention(BrowserView):
         self.request.response.redirect(url)
         return ''
 
+    def updateDemandeIntervention(self):
+        """
+        table pg demande d'intervention
+        mise a jour d'une demande d'intervention
+        """
+        commonTools = getMultiAdapter((self.context, self.request), name="manageCommon")
+        employeModification = commonTools.getUserAuthenticated()
 
+        fields = self.request.form
+        interventionPk = fields.get('interventionPk', None)
+        etatInterventionByIpplf = fields.get('etatInterventionByIpplf', None)
+        commentaireByIpplf = fields.get('commentaireByIpplf', None)
+
+        wrapper = getSAWrapper('ipplf')
+        session = wrapper.session
+        updateIntervention = wrapper.getMapper('demande_intervention')
+        query = session.query(updateIntervention)
+        query = query.filter(updateIntervention.di_pk == interventionPk)
+        demandeIntervention = query.one()
+        demandeIntervention.di_etat_ipplf = unicode(etatInterventionByIpplf, 'utf-8')
+        demandeIntervention.di_commentaire_ipplf = unicode(commentaireByIpplf, 'utf-8')
+        demandeIntervention.di_employe_modification = unicode(employeModification, 'utf-8')
+
+        session.flush()
+
+        portalUrl = getToolByName(self.context, 'portal_url')()
+        ploneUtils = getToolByName(self.context, 'plone_utils')
+        message = u"L'intervention a bien été modifiée !"
+        ploneUtils.addPortalMessage(message, 'info')
+        url = "%s/detail-demande-d-intervention?diPk=%s" % (portalUrl, interventionPk)
+        self.request.response.redirect(url)
+        return ''
 

@@ -69,4 +69,13 @@
         allowed_interface=".interfaces.IManageDemandeIntervention"
         />
 
+    <browser:page
+        name="updateDemandeIntervention"
+        for="*"
+        class=".ManageDemandeIntervention.ManageDemandeIntervention"
+        permission="zope.Public"
+        attribute="updateDemandeIntervention"
+        allowed_interface=".interfaces.IManageDemandeIntervention"
+        />
+
 </configure>
