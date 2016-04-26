@@ -19,7 +19,8 @@ class ManageCommon(BrowserView):
         """
         Envoi de mail
         """
-        mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
+        #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@affinitic.be")
         mail = message
@@ -29,7 +30,8 @@ class ManageCommon(BrowserView):
         """
         Envoi de mail au demandeur d'intervention
         """
-        mailer = Mailer("relay.skynet.be", emailDemandeur)
+        #mailer = Mailer("relay.skynet.be", emailDemandeur)
+        mailer = Mailer("localhost", emailDemandeur)
         mailer.setSubject(sujet)
         recipients = "%s" % (emailDemandeur)
         mailer.setRecipients(recipients)
@@ -40,7 +42,8 @@ class ManageCommon(BrowserView):
         """
         Envoi de mail à la personne qui a fait une demande d'inscription
         """
-        mailer = Mailer("relay.skynet.be", 'alain.meurant@affinitic.be')
+        #mailer = Mailer("relay.skynet.be", 'alain.meurant@affinitic.be')
+        mailer = Mailer("localhost", 'alain.meurant@affinitic.be')
         mailer.setSubject(sujet)
         recipients = "%s" % ('alain.meurant@affinitic.be')
         mailer.setRecipients(recipients)
