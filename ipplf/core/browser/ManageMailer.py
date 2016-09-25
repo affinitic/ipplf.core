@@ -23,7 +23,7 @@ import logging
 logger = logging.getLogger("affinitic")
 
 class Mailer:
-    def __init__(self, mailhost ,sender):
+    def __init__(self, mailhost, sender):
         """ sender: sender's email
         """
         self.sender = sender
@@ -80,4 +80,3 @@ class Mailer:
             message = self.createMail(recipient, text)
             server.sendmail(self.sender, recipient, message)
         server.quit()
-

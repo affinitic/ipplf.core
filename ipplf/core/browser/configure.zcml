@@ -36,9 +36,15 @@
 
 <!-- formulaire de demande d'intrvention -->
     <browser:page
-        name="formulaire-de-demande-d-intervention"
+        name="formulaire-de-demande-d-intervention-pour-locataire"
         for="*"
-        template="templates/demande_intervention_creer.pt"
+        template="templates/demande_intervention_creer_pour_locataire.pt"
+        permission="zope.Public" />
+
+    <browser:page
+        name="formulaire-de-demande-d-intervention-pour-non-locataire"
+        for="*"
+        template="templates/demande_intervention_creer_pour_non_locataire.pt"
         permission="zope.Public" />
 
     <browser:page
