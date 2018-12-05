@@ -45,7 +45,7 @@ class ManageCommon(BrowserView):
         #mailer = Mailer("relay.skynet.be", 'alain.meurant@affinitic.be')
         mailer = Mailer("localhost", 'alain.meurant@affinitic.be')
         mailer.setSubject(sujet)
-        recipients = "%s" % ('v.verstraete@ipplf.be', 'd.descamps@ipplf.be', 'alain.meurant@affinitic.be')
+        recipients = ','.join(['v.verstraete@ipplf.be', 'd.descamps@ipplf.be', 'alain.meurant@affinitic.be'])
         mailer.setRecipients(recipients)
         mail = message
         mailer.sendAllMail(mail)
