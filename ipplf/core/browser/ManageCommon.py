@@ -20,9 +20,9 @@ class ManageCommon(BrowserView):
         Envoi de mail
         """
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
+        mailer = Mailer("mail.affinitic.be", 4000, "info@affinitic.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be")
+        mailer.setRecipients("info@affinitic.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -31,7 +31,7 @@ class ManageCommon(BrowserView):
         Envoi de mail au demandeur d'intervention
         """
         #mailer = Mailer("relay.skynet.be", emailDemandeur)
-        mailer = Mailer("localhost", emailDemandeur)
+        mailer = Mailer("mail.affinitic.be", 4000, emailDemandeur)
         mailer.setSubject(sujet)
         recipients = "%s" % (emailDemandeur)
         mailer.setRecipients(recipients)
@@ -43,9 +43,9 @@ class ManageCommon(BrowserView):
         Envoi de mail à la personne qui a fait une demande d'inscription
         """
         #mailer = Mailer("relay.skynet.be", 'alain.meurant@affinitic.be')
-        mailer = Mailer("localhost", 'alain.meurant@affinitic.be')
+        mailer = Mailer("mail.affinitic.be", 4000, 'info@affinitic.be')
         mailer.setSubject(sujet)
-        recipients = ','.join(['v.verstraete@ipplf.be', 'd.verdoncq@ipplf.be', 'alain.meurant@affinitic.be'])
+        recipients = ','.join(['v.verstraete@ipplf.be', 'd.verdoncq@ipplf.be', 'info@affinitic.be'])
         mailer.setRecipients(recipients)
         mail = message
         mailer.sendAllMail(mail)

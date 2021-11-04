@@ -23,11 +23,12 @@ import logging
 logger = logging.getLogger("affinitic")
 
 class Mailer:
-    def __init__(self, mailhost, sender):
+    def __init__(self, mailhost, port, sender):
         """ sender: sender's email
         """
         self.sender = sender
         self.mailhost = mailhost
+        self.port = port
 
     def setSubject(self, subject):
         self.subject = subject
@@ -74,7 +75,7 @@ class Mailer:
         return msg
 
     def sendAllMail(self, text):
-        server = smtplib.SMTP(self.mailhost)
+        server = smtplib.SMTP(host=self.mailhost, port=self.port)
         for recipient in self.getRecipients():
             logging.info("Sending to %s" % recipient)
             message = self.createMail(recipient, text)
